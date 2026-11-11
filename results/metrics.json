@@ -1,0 +1,67 @@
+{
+  "data": "synthetic EEG (educational demo)",
+  "n_trials": 1200,
+  "n_subjects": 40,
+  "n_channels": 8,
+  "fs_hz": 128,
+  "trial_seconds": 4,
+  "n_features": 80,
+  "train_trials": 900,
+  "test_trials": 300,
+  "train_subjects": 30,
+  "test_subjects": 10,
+  "model": "StandardScaler + RandomForestClassifier(n_estimators=300)",
+  "accuracy": 0.7733,
+  "macro_f1": 0.7725,
+  "confusion_matrix": {
+    "labels": [
+      "relaxed",
+      "stressed"
+    ],
+    "rows_true_cols_pred": [
+      [
+        125,
+        25
+      ],
+      [
+        43,
+        107
+      ]
+    ]
+  },
+  "top_features": [
+    [
+      "F3_rel_gamma",
+      0.0273
+    ],
+    [
+      "O2_rel_gamma",
+      0.0252
+    ],
+    [
+      "F4_rel_gamma",
+      0.0228
+    ],
+    [
+      "F4_rel_alpha",
+      0.0223
+    ],
+    [
+      "P4_rel_gamma",
+      0.0213
+    ],
+    [
+      "F4_log_gamma",
+      0.021
+    ],
+    [
+      "P3_rel_gamma",
+      0.0209
+    ],
+    [
+      "O2_rel_alpha",
+      0.02
+    ]
+  ],
+  "seed": 42
+}
