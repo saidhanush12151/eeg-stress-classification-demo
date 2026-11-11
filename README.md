@@ -29,7 +29,7 @@ Confusion matrix on the held-out test set (rows = true class, columns = predicte
 | **true relaxed** | 125 | 25 |
 | **true stressed** | 43 | 107 |
 
-**What this shows:** the band-power features carry a real but noisy signal. The classifier is better at recognising relaxed trials (recall 0.83) than stressed ones (recall 0.71). Relative gamma and beta power are the most important features, which matches how the data was simulated. The task was made deliberately hard. The score reflects only how the simulation was designed, and it says nothing about real-world stress detection. Full details are in [`results/metrics.md`](results/metrics.md) and [`results/metrics.json`](results/metrics.json).
+**What this shows:** the band-power features carry a real but noisy signal. The classifier is better at recognising relaxed trials (recall 0.83) than stressed ones (recall 0.71). Relative gamma and alpha power are the most important features, which matches how the data was simulated (stress raises gamma and lowers alpha). The task was made deliberately hard. The score reflects only how the simulation was designed, and it says nothing about real-world stress detection. Full details are in [`results/metrics.md`](results/metrics.md) and [`results/metrics.json`](results/metrics.json).
 
 ## Setup and run
 
