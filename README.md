@@ -4,6 +4,32 @@
 
 This is a fresh, small portfolio demo by **Murthy Sai Dhanush**. It is based on the ideas from my B.Tech capstone, a team project on EEG-based stress prediction. The capstone itself is a separate, larger codebase that used a hybrid deep learning model followed by XGBoost. This demo is not that code. It is a deliberately simple, fully reproducible baseline that walks through the core steps end to end.
 
+## Pipeline at a glance
+
+```mermaid
+flowchart TB
+    A["Simulate EEG<br/>40 subjects · 8 channels<br/>128 Hz · 4 s trials"] --> B["Welch PSD<br/>delta · theta · alpha · beta · gamma"]
+    B --> C["80 features<br/>log + relative band power"]
+    C --> D{"GroupShuffleSplit<br/>by subject"}
+    D -->|"30 subjects · 900 trials"| E["StandardScaler +<br/>RandomForest (300 trees)"]
+    D -->|"10 subjects · 300 trials"| F["Held-out test set"]
+    E --> G["Predict"]
+    F --> G
+    G --> H["Accuracy 77.3% · Macro F1 0.77<br/>confusion matrix → results/"]
+    E -.-> I["Gradio app<br/>trial from a new, unseen subject"]
+```
+
+### Why the split is by subject
+
+```mermaid
+flowchart LR
+    S["40 simulated subjects<br/>30 trials each"] --> T["Train<br/>30 subjects · 900 trials"]
+    S --> X["Test<br/>10 different subjects · 300 trials"]
+    T x--x|"no shared subjects (asserted in code)"| X
+```
+
+A random trial-level split would put trials from the same person in both sets, so the model could learn the person instead of the stress pattern. Splitting by subject measures how well it generalises to new people.
+
 ## What it does
 
 1. **Generates synthetic multi-channel EEG.** There are 8 channels (F3, F4, C3, C4, P3, P4, O1, O2) sampled at 128 Hz, with 4-second trials. Each signal is a sum of delta, theta, alpha, beta, and gamma oscillations plus 1/f-like noise. The "stressed" trials get slightly more beta and gamma and less alpha than the "relaxed" trials. The two classes overlap on purpose, and each simulated subject has its own channel gains and frequency shift.
